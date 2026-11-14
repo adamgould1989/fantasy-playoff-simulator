@@ -9,12 +9,16 @@ import { Table } from './Table.tsx';
 import { Week } from './Week.tsx';
 import { Paths } from './Paths.tsx';
 
+// `hidden` keeps a league out of the switcher (it still loads from a direct #l= link).
+// The 2026 leagues are hidden until their final week is close enough to be useful.
 const PRESETS = [
-  { id: '1312885134466256896', label: 'Redraft 2026' },
-  { id: '1312401717450522624', label: 'Dynasty 2026' },
-  { id: '1233074781964750848', label: 'Redraft 2025' },
-  { id: '1180474001524310016', label: 'Dynasty 2025' },
+  { id: '1312885134466256896', label: 'Redraft 2026', hidden: true },
+  { id: '1312401717450522624', label: 'Dynasty 2026', hidden: true },
+  { id: '1233074781964750848', label: 'Redraft 2025', hidden: false },
+  { id: '1180474001524310016', label: 'Dynasty 2025', hidden: false },
 ];
+const VISIBLE = PRESETS.filter((p) => !p.hidden);
+const HIDDEN_IDS = new Set(PRESETS.filter((p) => p.hidden).map((p) => p.id));
 
 type Tab = 'table' | 'week' | 'paths';
 
@@ -37,13 +41,15 @@ const store = {
 };
 
 const initial = readUrl();
+const saved = store.get('league');
+const startLeague = initial.league ?? (saved && !HIDDEN_IDS.has(saved) ? saved : VISIBLE[0].id);
 
 export function App() {
-  const [leagueId, setLeagueId] = useState(initial.league ?? store.get('league') ?? PRESETS[0].id);
+  const [leagueId, setLeagueId] = useState(startLeague);
   const [mode, setMode] = useState<ReplayMode>(initial.mode ?? 'blank');
   const [overrides, setOverrides] = useState<Overrides>(initial.overrides);
   const [myTeam, setMyTeam] = useState<RosterId | null>(
-    initial.team ?? (Number(store.get(`team:${initial.league ?? store.get('league')}`)) || null),
+    initial.team ?? (Number(store.get(`team:${startLeague}`)) || null),
   );
   const [tab, setTab] = useState<Tab>('table');
   const [league, setLeague] = useState<League | null>(null);
@@ -154,7 +160,7 @@ export function App() {
     <div class="app">
       <header class="masthead">
         <nav class="leagues" aria-label="Leagues">
-          {PRESETS.map((p) => (
+          {VISIBLE.map((p) => (
             <button key={p.id} class={`chip${p.id === leagueId ? ' is-active' : ''}`} aria-pressed={p.id === leagueId} onClick={() => switchLeague(p.id)}>
               {p.label}
             </button>
