@@ -141,11 +141,11 @@ export function Paths({ teams, order, scen, me, week, picks, onPickTeam }: Props
                 <span>
                   <strong>{name(fav)}</strong> over {name(other)}
                 </span>
-                <span class="num swing">+{Math.round(delta * 100)}</span>
+                <span class="num swing">+{Math.round(delta * 100)}%</span>
               </li>
             ))}
           </ul>
-          <p class="note">Numbers are the change in playoff odds, in percentage points.</p>
+          <p class="note">How much each result raises your playoff odds.</p>
         </>
       )}
       {noMatter.length > 0 && badge === 'alive' && (

@@ -93,11 +93,10 @@ export async function loadLeague(leagueId: string, requestedWeek?: number): Prom
   const teams: Team[] = rosters
     .map((r) => {
       const u = usersById.get(r.owner_id);
-      const avatar: string | null =
-        u?.metadata?.avatar || (u?.avatar ? `https://sleepercdn.com/avatars/thumbs/${u.avatar}` : null);
+      const avatar: string | null = u?.avatar ? `https://sleepercdn.com/avatars/thumbs/${u.avatar}` : null;
       return {
         id: r.roster_id as number,
-        name: (u?.metadata?.team_name as string) || u?.display_name || `Team ${r.roster_id}`,
+        name: u?.display_name || `Team ${r.roster_id}`,
         owner: u?.display_name ?? 'No owner',
         avatar,
       };

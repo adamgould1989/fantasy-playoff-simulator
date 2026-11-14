@@ -2,13 +2,12 @@ import type { Overrides, ReplayMode } from '../model/types.ts';
 
 export interface UrlState {
   league?: string;
-  week?: number;
   mode?: ReplayMode;
   team?: number;
   overrides: Overrides;
 }
 
-/** Hash format: #l=<league>&w=<week>&m=a|b&t=<roster>&o=<matchup>.<winner>[.<ptsA>.<ptsB>],... (points in cents) */
+/** Hash format: #l=<league>&m=a|b&t=<roster>&o=<matchup>.<winner>[.<ptsA>.<ptsB>],... (points in cents) */
 export function readUrl(): UrlState {
   const p = new URLSearchParams(location.hash.replace(/^#/, ''));
   const num = (k: string) => (p.get(k) && Number.isFinite(Number(p.get(k))) ? Number(p.get(k)) : undefined);
@@ -23,7 +22,6 @@ export function readUrl(): UrlState {
   const m = p.get('m');
   return {
     league: p.get('l') ?? undefined,
-    week: num('w'),
     mode: m === 'a' ? 'actual' : m === 'b' ? 'blank' : undefined,
     team: num('t'),
     overrides,
@@ -33,7 +31,6 @@ export function readUrl(): UrlState {
 export function writeUrl(s: UrlState): string {
   const p = new URLSearchParams();
   if (s.league) p.set('l', s.league);
-  if (s.week) p.set('w', String(s.week));
   if (s.mode) p.set('m', s.mode === 'actual' ? 'a' : 'b');
   if (s.team) p.set('t', String(s.team));
   const o = Object.entries(s.overrides)

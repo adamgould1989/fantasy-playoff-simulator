@@ -40,7 +40,6 @@ const initial = readUrl();
 
 export function App() {
   const [leagueId, setLeagueId] = useState(initial.league ?? store.get('league') ?? PRESETS[0].id);
-  const [week, setWeek] = useState<number | undefined>(initial.week);
   const [mode, setMode] = useState<ReplayMode>(initial.mode ?? 'blank');
   const [overrides, setOverrides] = useState<Overrides>(initial.overrides);
   const [myTeam, setMyTeam] = useState<RosterId | null>(
@@ -56,7 +55,7 @@ export function App() {
   const load = (keepOverrides: boolean) => {
     setLoading(true);
     setError(null);
-    loadLeague(leagueId, week)
+    loadLeague(leagueId)
       .then((l) => {
         setLeague(l);
         if (!keepOverrides) setOverrides({});
@@ -66,21 +65,20 @@ export function App() {
       .finally(() => setLoading(false));
   };
 
-  // Load on league/week change. Overrides from the URL survive the first load only.
+  // Load on league change. Overrides from the URL survive the first load only.
   const [firstLoad, setFirstLoad] = useState(true);
   useEffect(() => {
     load(firstLoad);
     setFirstLoad(false);
-  }, [leagueId, week]);
+  }, [leagueId]);
 
   useEffect(() => {
-    writeUrl({ league: leagueId, week, mode: league?.status === 'complete' ? mode : undefined, team: myTeam ?? undefined, overrides });
-  }, [leagueId, week, mode, myTeam, overrides, league]);
+    writeUrl({ league: leagueId, mode: league?.status === 'complete' ? mode : undefined, team: myTeam ?? undefined, overrides });
+  }, [leagueId, mode, myTeam, overrides, league]);
 
   const switchLeague = (id: string) => {
     if (id === leagueId) return;
     setLeague(null);
-    setWeek(undefined);
     setOverrides({});
     setMyTeam(Number(store.get(`team:${id}`)) || null);
     setLeagueId(id);
@@ -132,7 +130,7 @@ export function App() {
   };
 
   const share = async () => {
-    const url = writeUrl({ league: leagueId, week, mode: league?.status === 'complete' ? mode : undefined, team: myTeam ?? undefined, overrides });
+    const url = writeUrl({ league: leagueId, mode: league?.status === 'complete' ? mode : undefined, team: myTeam ?? undefined, overrides });
     const title = `${league?.name ?? 'League'}: week ${league?.openWeek} scenarios`;
     try {
       if (navigator.share) await navigator.share({ title, url });
@@ -203,17 +201,6 @@ export function App() {
                   {loading ? 'Refreshing…' : 'Refresh scores'}
                 </button>
               )}
-              <label class="week-select">
-                <span>Final week</span>
-                <select value={league.openWeek} onChange={(e) => { setOverrides({}); setWeek(Number((e.target as HTMLSelectElement).value)); }}>
-                  {Array.from({ length: league.finalWeek - 1 }, (_, k) => k + 2).map((w) => (
-                    <option key={w} value={w}>
-                      Week {w}
-                      {w === league.finalWeek ? ' (real)' : ''}
-                    </option>
-                  ))}
-                </select>
-              </label>
             </div>
             {league.unplayedWeeks.length > 0 && (
               <p class="banner">

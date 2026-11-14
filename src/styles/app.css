@@ -196,7 +196,6 @@ button {
   color: var(--board);
 }
 
-.week-select,
 .team-select {
   display: inline-flex;
   align-items: center;
@@ -374,16 +373,8 @@ select {
   max-width: 100%;
 }
 
-.owner {
-  color: var(--muted);
-  font-size: 0.8125rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 .row.is-out .team-name,
-.row.is-out .owner,
 .row.is-out .num {
   color: var(--muted);
 }
