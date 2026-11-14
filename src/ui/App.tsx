@@ -213,6 +213,21 @@ export function App() {
         )}
       </header>
 
+      {league && (
+        <nav class="tabs" aria-label="Views">
+          <button class={tab === 'table' ? 'is-active' : ''} aria-current={tab === 'table' ? 'page' : undefined} onClick={() => setTab('table')}>
+            Table
+          </button>
+          <button class={tab === 'week' ? 'is-active' : ''} aria-current={tab === 'week' ? 'page' : undefined} onClick={() => setTab('week')}>
+            Week {league.openWeek}
+            {picks > 0 && <span class="pip">{picks}</span>}
+          </button>
+          <button class={tab === 'paths' ? 'is-active' : ''} aria-current={tab === 'paths' ? 'page' : undefined} onClick={() => setTab('paths')}>
+            Paths
+          </button>
+        </nav>
+      )}
+
       <main>
         {error && (
           <div class="banner banner-error" role="alert">
@@ -264,20 +279,6 @@ export function App() {
         )}
       </main>
 
-      {league && (
-        <nav class="tabs" aria-label="Views">
-          <button class={tab === 'table' ? 'is-active' : ''} aria-current={tab === 'table' ? 'page' : undefined} onClick={() => setTab('table')}>
-            Table
-          </button>
-          <button class={tab === 'week' ? 'is-active' : ''} aria-current={tab === 'week' ? 'page' : undefined} onClick={() => setTab('week')}>
-            Week {league.openWeek}
-            {picks > 0 && <span class="pip">{picks}</span>}
-          </button>
-          <button class={tab === 'paths' ? 'is-active' : ''} aria-current={tab === 'paths' ? 'page' : undefined} onClick={() => setTab('paths')}>
-            Paths
-          </button>
-        </nav>
-      )}
     </div>
   );
 }
