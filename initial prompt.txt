@@ -1,0 +1,29 @@
+I'm in two NFL fantasy football leagues, hosted on the Sleeper platform. Sleeper has a public RO API, documented at https://docs.sleeper.com/
+
+One of the leagues is Redraft, where the regular season runs until week 14, with playoffs weeks 15-17. The top 6 teams after the regular season make the playoffs. The other is dynasty where the regular season runs until week 15, with playoffs weeks 16-17. The top four teams in this league make the playoffs.
+
+
+The ordering of the regular season league table at any given point in time is determined by the following precedence: a. Win percentage across all games played so far this season b. If win percentage is tied with other teams, win percentage against the tied teams will take precedence (i.e. head-to-head record) c. If tied teams have a tied head-to-head record in terms of win percentage, average number of points scored per matchup within that head-to-head group will take precedence (i.e. if multiple teams have the same win percentage across all matchups, and have the same win percentage versus all other teams with the same win percentage across all matchups, then the order will be determined by who has the largest points scored per matchup against the other tied teams) d. If teams remain tied after this, points scored across all matchups this season will determine the order.
+
+
+As soon as the penultimate regular season gameweek has completed, team owners in my leagues ask the question "what needs to happen in the final week for me to make the playoffs?". Sometimes the answer is simple (e.g. win and you're in). Other times it's a complex set of permutations based on not only your own matchup but many of the others in the league.
+
+Create a webpage that helps team owners answer that question. It should contain a couple of things listed below, but please suggest other features that might be helpful or interesting to give team owners context and understanding of all the permutations of results in the final week of the regular season:
+
+1) A live view of the league table. So if we're in the middle of the final gameweek the live scores can update the league table realtime.
+2) The ability for users to quickly and easily toggle winners (and points if they really want to) of all the matchups in the final gameweek, and for those overrides to adjust the league table. This ensures users can see the hypothetical final league table result based on the matchup winners and losers they select
+3) Clear explanations, for teams tied on overal win-loss record, of why the final ordering is the way it is. This means explaining the result of the head-to-head tie-breaks between those teams
+
+The webpage doesn't need a back-end (unless you tell me it does) nor does it need a database. The only data it needs can be retrieved from the Sleeper API. I want to host it on Netlify, linked directly to Gitlab.
+
+In order for me to test and verify that you've done the correct thing, I need to test on real data. Because my 2026 leagues are far away from the final regular gameweek of the season, it's best I test on 2025 league data. Below are the league IDs for my 2025 and 2026 leagues:
+
+Redraft 2025 - 1233074781964750848
+Redraft 2026 - 1312885134466256896
+
+Dynasty 2025 - 1180474001524310016
+Dynasty 2026 - 1312401717450522624
+
+In terms of look and feel of the webpage, in my opinion all webpages that Claude models create look very similar. They all have the same colour palletes, font styles, look and feel. I want this webpage to feel different. I also don't want it to reflect the Sleeper look and feel either. Very important - this website needs to be mobile-first. All users will be opening this on mobile rather than anything else. Therefore the styling needs to suit that.
+
+
