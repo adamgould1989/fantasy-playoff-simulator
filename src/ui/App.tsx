@@ -63,6 +63,7 @@ export function App() {
     loadLeague(leagueId)
       .then((l) => {
         setLeague(l);
+        if (!keepOverrides || firstLoad) requestAnimationFrame(() => window.scrollTo(0, 0));
         if (!keepOverrides) setOverrides({});
         store.set('league', leagueId);
       })
