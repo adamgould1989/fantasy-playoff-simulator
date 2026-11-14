@@ -50,7 +50,6 @@ export function App() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [otherId, setOtherId] = useState('');
-  const [copied, setCopied] = useState(false);
 
   const load = (keepOverrides: boolean) => {
     setLoading(true);
@@ -127,21 +126,6 @@ export function App() {
       else delete next[id];
       return next;
     });
-  };
-
-  const share = async () => {
-    const url = writeUrl({ league: leagueId, mode: league?.status === 'complete' ? mode : undefined, team: myTeam ?? undefined, overrides });
-    const title = `${league?.name ?? 'League'}: week ${league?.openWeek} scenarios`;
-    try {
-      if (navigator.share) await navigator.share({ title, url });
-      else {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }
-    } catch {
-      /* share cancelled */
-    }
   };
 
   const fetchedAt = league ? new Date(league.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
@@ -270,11 +254,6 @@ export function App() {
             {tab === 'paths' && scen && (
               <Paths teams={teams} order={table.ranking.order} scen={scen} me={myTeam} week={league.openWeek} picks={picks} onPickTeam={pickTeam} />
             )}
-            <div class="share-row">
-              <button class="btn" onClick={share}>
-                {copied ? 'Link copied' : 'Share this scenario'}
-              </button>
-            </div>
           </>
         )}
       </main>
