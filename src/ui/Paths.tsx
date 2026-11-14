@@ -9,7 +9,6 @@ interface Props {
   scen: ScenarioResult;
   me: RosterId | null;
   week: number;
-  picks: number;
   onPickTeam: (id: RosterId | null) => void;
 }
 
@@ -38,7 +37,7 @@ function Terms({ terms, me, name }: { terms: PathTerm[]; me: RosterId; name: (id
   );
 }
 
-export function Paths({ teams, order, scen, me, week, picks, onPickTeam }: Props) {
+export function Paths({ teams, order, scen, me, week, onPickTeam }: Props) {
   const name = (id: RosterId) => teams.get(id)?.name ?? `Team ${id}`;
   const select = (
     <label class="team-select">
@@ -98,11 +97,7 @@ export function Paths({ teams, order, scen, me, week, picks, onPickTeam }: Props
               ? `${name(me)} is out.`
               : `${name(me)} makes it in ${oddsText(odds, badge)} of simulations.`}
         </p>
-        {picks > 0 && (
-          <p class="note">
-            Based on your {picks} {picks === 1 ? 'pick' : 'picks'} in week {week}.
-          </p>
-        )}
+        <p class="note">Based on results up to week {week - 1}. Picks and scores from week {week} aren't included.</p>
       </div>
 
       {own && badge === 'alive' && (
