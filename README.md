@@ -10,7 +10,7 @@ A mobile-first page that answers "what needs to happen in the final week for me 
 - **Paths**: for any team, plain-English conditions for getting in, e.g. "you win, or you lose and A beat B". It also shows when points will decide it, and who to root for in every other game.
 - **Odds and badges**: clinched / eliminated / playoff odds. Odds come from every combination of final-week winners. Scores are simulated from each team's season average whenever points decide a tiebreak.
 - Teams are shown by their owner's Sleeper username.
-- **Share this scenario**: your picks are saved in the URL.
+- Your picks are kept in the page address, so reloading the page doesn't lose them.
 - **Replay finished seasons**: start the final week blank or load the real results, which is how to test on 2025 data.
 
 ## League rules used

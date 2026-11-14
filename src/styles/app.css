@@ -857,10 +857,6 @@ select {
   color: var(--green);
 }
 
-.share-row {
-  margin-top: 28px;
-}
-
 /* Tabs stick to the top. The bottom-right corner is left clear for the host's badge. */
 .tabs {
   position: sticky;
