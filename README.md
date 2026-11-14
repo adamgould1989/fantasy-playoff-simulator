@@ -9,8 +9,9 @@ A mobile-first page that answers "what needs to happen in the final week for me 
 - **Tiebreak explanations**: tied teams are bracketed in the table. **Why this order?** shows each team's record and points against the other tied teams, and which rule separated each pair.
 - **Paths**: for any team, plain-English conditions for getting in, e.g. "you win, or you lose and A beat B". It also shows when points will decide it, and who to root for in every other game.
 - **Odds and badges**: clinched / eliminated / playoff odds. Odds come from every combination of final-week winners. Scores are simulated from each team's season average whenever points decide a tiebreak.
+- Teams are shown by their owner's Sleeper username.
 - **Share this scenario**: your picks are saved in the URL.
-- **Final week picker**: treat any earlier week as the final week. Completed seasons can be replayed blank or with the real results, which is how to test on 2025 data.
+- **Replay finished seasons**: start the final week blank or load the real results, which is how to test on 2025 data.
 
 ## League rules used
 

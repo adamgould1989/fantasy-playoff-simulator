@@ -97,7 +97,6 @@ export function Table({ teams, agg, ranking, scen, playoffTeams, myTeam, onPickT
                   <Avatar src={t.avatar} name={t.name} />
                   <span class="who">
                     <span class="team-name">{t.name}</span>
-                    <span class="owner">{t.owner}</span>
                   </span>
                   <span class="num">{record(agg.w[i], agg.l[i], agg.t[i])}</span>
                   <span class="num pf">{(agg.pf[i] / 100).toFixed(1)}</span>
