@@ -119,6 +119,25 @@ export function App() {
     });
   }, [league, mode, overrides]);
 
+  // Paths ignore picks and live/real final-week scores: only weeks before the final week count.
+  const preWeek = useMemo(() => {
+    if (!league) return null;
+    const ids = league.teams.map((t) => t.id);
+    if (league.matchups.length > 10) return null;
+    return {
+      order: rank(Agg.from(ids, league.games), false).order,
+      scen: runScenarios({
+        ids,
+        games: league.games,
+        playoffTeams: league.playoffTeams,
+        week: league.openWeek,
+        fixed: [],
+        forced: [],
+        open: league.matchups,
+      }),
+    };
+  }, [league]);
+
   const setOverride = (id: number, o: Override | undefined) => {
     setOverrides((prev) => {
       const next = { ...prev };
@@ -251,8 +270,8 @@ export function App() {
                 onReset={() => setOverrides({})}
               />
             )}
-            {tab === 'paths' && scen && (
-              <Paths teams={teams} order={table.ranking.order} scen={scen} me={myTeam} week={league.openWeek} picks={picks} onPickTeam={pickTeam} />
+            {tab === 'paths' && preWeek && (
+              <Paths teams={teams} order={preWeek.order} scen={preWeek.scen} me={myTeam} week={league.openWeek} onPickTeam={pickTeam} />
             )}
           </>
         )}

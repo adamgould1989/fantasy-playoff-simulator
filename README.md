@@ -7,7 +7,7 @@ A mobile-first page that answers "what needs to happen in the final week for me 
 - **Table**: the live league table. During the final week, games in progress count with their current scores. Tap **Refresh scores** to update.
 - **Week view**: tap a team to pick the winner of each matchup, or set exact scores. The table, odds and paths all update.
 - **Tiebreak explanations**: tied teams are bracketed in the table. **Why this order?** shows each team's record and points against the other tied teams, and which rule separated each pair.
-- **Paths**: for any team, plain-English conditions for getting in, e.g. "you win, or you lose and A beat B". It also shows when points will decide it, and who to root for in every other game.
+- **Paths**: for any team, plain-English conditions for getting in, e.g. "you win, or you lose and A beat B". It also shows when points will decide it, and who to root for in every other game. Paths only use results up to the week before the final week. They ignore your picks and any live or real final-week scores.
 - **Odds and badges**: clinched / eliminated / playoff odds. Odds come from every combination of final-week winners. Scores are simulated from each team's season average whenever points decide a tiebreak.
 - Teams are shown by their owner's Sleeper username.
 - Your picks are kept in the page address, so reloading the page doesn't lose them.
